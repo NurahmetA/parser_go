@@ -11,18 +11,17 @@ import (
 	"time"
 )
 
-type JsonData struct{
-	Id int `json:"id"`
-	Date string `json:"date"`
-	Title string `json:"title"`
-	Type string `json:"type"`
+type JsonData struct {
+	Id       int    `json:"id"`
+	Date     string `json:"date"`
+	Title    string `json:"title"`
+	Type     string `json:"type"`
 	Platform string `json:"platform"`
-	Author string `json:"author"`
-	Code string `json:"code"`
+	Author   string `json:"author"`
+	Code     string `json:"code"`
 }
 
-
-func Parse() ([]JsonData, error){
+func Parse() ([]JsonData, error) {
 	var jsonData []JsonData
 	var err error
 	for i := 0; i < 10; i++ {
@@ -64,7 +63,6 @@ func getHtmlPage(i int) (string, error) {
 		chromedp.WithLogf(log.Printf),
 	)
 	var htmlRes string
-	defer cancel()
 	var err error
 	ctx, cancel = context.WithTimeout(ctx, 15*time.Second)
 	defer cancel()
@@ -91,8 +89,6 @@ func getHtmlPage(i int) (string, error) {
 			emulation.SetUserAgentOverride("WebScraper 1.0"),
 			chromedp.Navigate(`https://exploit-db.com`),
 			chromedp.Sleep(time.Second),
-			chromedp.Click("verifiedCheck", chromedp.ByID),
-			chromedp.Sleep(time.Second),
 			chromedp.Click("exploits-table_next", chromedp.ByID),
 			chromedp.Sleep(time.Second),
 			chromedp.WaitVisible("tbody tr", chromedp.ByQuery),
@@ -108,4 +104,3 @@ func getHtmlPage(i int) (string, error) {
 	}
 	return htmlRes, err
 }
-
