@@ -64,7 +64,7 @@ func getHtmlPage(i int) (string, error) {
 	)
 	var htmlRes string
 	var err error
-	ctx, cancel = context.WithTimeout(ctx, 15*time.Second)
+	ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 	if i == 0 {
 		err = chromedp.Run(ctx,
