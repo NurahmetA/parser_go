@@ -70,6 +70,8 @@ func getHtmlPage() (string, error) {
 		chromedp.Sleep(time.Second),
 		chromedp.Click("verifiedCheck", chromedp.ByID),
 		chromedp.Sleep(time.Second),
+		chromedp.SetValue("select[name=exploits-table_length]", "120", chromedp.ByQuery),
+		chromedp.Sleep(time.Second*5),
 		chromedp.WaitVisible("tbody tr", chromedp.ByQuery),
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			node, err := dom.GetDocument().Do(ctx)
